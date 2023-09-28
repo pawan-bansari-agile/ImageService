@@ -26,10 +26,7 @@ export const UserStorage = {
       const filename: string = file.originalname;
       const fileName: string = filename.replace(/\s/g, '');
       const extention: string[] = fileName.split('.');
-      cb(
-        null,
-        `${extention[0]}mainImage&TS:${new Date().getTime()}.${extention[1]}`,
-      );
+      cb(null, `${extention[0]}.${extention[1]}`);
     },
   }),
   fileFilter: (req, file, cb) => {
