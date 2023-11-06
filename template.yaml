@@ -11,7 +11,7 @@ Resources:
   NestFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./ImageService
+      CodeUri: ./
       Handler: dist/lambda.handler
       Runtime: nodejs16.x
       Architectures:

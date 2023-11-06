@@ -29,17 +29,20 @@ const s3 = new aws.S3({
   region: process.env.AWS_REGION,
 });
 
+let ext;
+
 const s3Storage = multerS3({
   s3: s3 as any,
   bucket: process.env.S3_BUCKET_NAME,
   acl: 'public-read', // Optional: set the access control level
-  contentType: multerS3.AUTO_CONTENT_TYPE, // Automatically detect and set the content type
+  // contentType: multerS3.AUTO_CONTENT_TYPE, // Automatically detect and set the content type
   key: (req, file, cb) => {
     // Define the key (filename) for the S3 object
-    const ext = file.originalname.split('.').pop();
+    ext = file.originalname.split('.').pop();
     const key = `uploads/${Date.now()}-${file.originalname}`;
     cb(null, key);
   },
+  contentType: ext,
 });
 
 export const UserStorage = {
