@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'sam-nest
+
+  '
+Globals:
+  Function:
+    Timeout: 30
+Resources:
+  NestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: NestFunction
+      Handler: dist/lambda.handler
+      Runtime: nodejs16.x
+      Architectures:
+      - x86_64
+      Events:
+        Nest:
+          Type: Api
+          Properties:
+            Path: /{any+}
+            Method: any
+    Metadata:
+      SamResourceId: NestFunction
+Outputs:
+  NestApi:
+    Description: API Gateway endpoint URL for Prod stage for a Nest function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/

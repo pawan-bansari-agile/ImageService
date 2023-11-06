@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "nest-app"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1rymsanttvhep"
+s3_prefix = "nest-app"
+region = "ap-south-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
