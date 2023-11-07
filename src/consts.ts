@@ -1,6 +1,9 @@
 import { BadRequestException } from '@nestjs/common';
 import { diskStorage } from 'multer';
-import multerS3 from 'multer-s3';
+// import multerS3 from 'multer-s3';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+// const multerS3 = require('multer-s3');
+import * as multerS3 from 'multer-s3';
 import * as aws from 'aws-sdk';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
@@ -33,7 +36,7 @@ let ext;
 
 const s3Storage = multerS3({
   s3: s3 as any,
-  bucket: process.env.S3_BUCKET_NAME,
+  bucket: `${process.env.S3_BUCKET_NAME}`,
   acl: 'public-read', // Optional: set the access control level
   // contentType: multerS3.AUTO_CONTENT_TYPE, // Automatically detect and set the content type
   key: (req, file, cb) => {
@@ -42,7 +45,11 @@ const s3Storage = multerS3({
     const key = `uploads/${Date.now()}-${file.originalname}`;
     cb(null, key);
   },
-  contentType: ext,
+  contentType: (req, file, cb) => {
+    // Determine content type based on the file extension
+    const contentType = `image/${ext}`;
+    cb(null, contentType);
+  },
 });
 
 export const UserStorage = {
@@ -60,6 +67,8 @@ export const UserStorage = {
     const allowedExtensions = /\.(jpg|jpeg|png|gif)$/i; // case-insensitive
     const ext = file.originalname.split('.').pop();
     if (!allowedExtensions.test(ext)) {
+      console.log('inside s3Storage');
+
       return cb(
         new BadRequestException(
           'Invalid file type. Only jpg, jpeg, png and gif files are allowed.',

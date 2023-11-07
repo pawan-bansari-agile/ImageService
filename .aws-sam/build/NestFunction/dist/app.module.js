@@ -13,12 +13,13 @@ const app_service_1 = require("./app.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const image_schema_1 = require("./image.schema");
 const schedule_1 = require("@nestjs/schedule");
+require('dotenv').config();
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost/images'),
+            mongoose_1.MongooseModule.forRoot(`mongodb+srv://images:K22D7LgnNN8zSiRI@images.d31vf0v.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp`),
             mongoose_1.MongooseModule.forFeature([{ name: image_schema_1.Images.name, schema: image_schema_1.ImageSchema }]),
             schedule_1.ScheduleModule.forRoot(),
         ],

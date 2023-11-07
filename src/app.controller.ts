@@ -28,6 +28,9 @@ export class AppController {
     @Query() query: object,
   ) {
     // try {
+    console.log('from controller');
+    console.log('file=======>', file);
+
     return await this.appService.upload(file, query);
     // } catch (error) {
     //   if (file && file.filename) {

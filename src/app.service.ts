@@ -40,6 +40,8 @@ export class AppService {
   }
 
   async upload(file: Express.Multer.File, query: object) {
+    console.log('from service');
+
     const s3 = new S3({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -166,6 +168,7 @@ export class AppService {
 
         const newImageName = `${onlyname}_${width}x${height}.${format}`;
         imageNamesToStore.push({ imageName: newImageName });
+        console.log('reached sharp');
 
         const imgBuffer = await sharp(file.buffer)
           .resize(width, height)

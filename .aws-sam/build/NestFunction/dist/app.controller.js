@@ -25,6 +25,8 @@ let AppController = class AppController {
         return this.appService.getHello();
     }
     async uploadImage(file, query) {
+        console.log('from controller');
+        console.log('file=======>', file);
         return await this.appService.upload(file, query);
     }
     async getUserProfilePhoto(searchTerm) {

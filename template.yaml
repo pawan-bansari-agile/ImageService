@@ -14,6 +14,7 @@ Resources:
       CodeUri: ./
       Handler: dist/lambda.handler
       Runtime: nodejs16.x
+      Timeout: 60
       Architectures:
         - x86_64
       Events:
